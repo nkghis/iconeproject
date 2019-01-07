@@ -79,7 +79,7 @@
 
                 {!! Form::open(['route' => ['visuels.store'], 'enctype' => 'multipart/form-data','files' => 'true']) !!}
                 {{ csrf_field() }}
-                @include('visuel._Form')
+                @include('visuel._form')
 
                 <!-- Submit Form Button -->
                     <div class="form-group row mb-0">

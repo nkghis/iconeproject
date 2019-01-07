@@ -15,7 +15,7 @@ class UserController extends Controller
     {
         $result = User::latest()->paginate();
         //dd($result);
-        return view('user.index', compact('result'));
+        return view('User.index', compact('result'));
     }
 
     public function create()
