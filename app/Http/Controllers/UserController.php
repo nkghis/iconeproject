@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use App\Permission;
 use App\Traits\Authorizable;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -21,7 +22,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name', 'id');
-        return view('user.new', compact('roles'));
+        return view('User.new', compact('roles'));
     }
 
     public function store(Request $request)
@@ -53,7 +54,7 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'id');
         $permissions = Permission::all('name', 'id');
 
-        return view('user.edit', compact('user', 'roles', 'permissions'));
+        return view('User.edit', compact('user', 'roles', 'permissions'));
     }
 
     public function update(Request $request, $id)
