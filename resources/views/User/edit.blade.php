@@ -24,7 +24,7 @@
                             <div class="ibox float-e-margins">
                                 <div class="ibox-content">
                                 {!! Form::model($user, ['method' => 'PUT', 'route' => ['users.update',  $user->id ] ]) !!}
-                                @include('user._form')
+                                @include('User._form')
                                 <!-- Submit Form Button -->
                                     {!! Form::submit('Sauvegarder', ['class' => 'btn btn-primary']) !!}
                                     {!! Form::close() !!}
