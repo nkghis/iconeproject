@@ -139,24 +139,15 @@
     var infowindows;
     var e = document.getElementById('com');
     var id = e.options[e.selectedIndex].value;
-    //var element = $(this).find('option:selected').attr('com');
    console.log(id);
 
 
     var init = @json($cs);
-    console.log(init.lat);
-    console.log(init.lng);
-    console.log(init.zoom);
+
     if (id != 0)
     {
 
         function initMap() {
-            // Creation de la carte et initialisation de la vue.
-            /*var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: 5.3819324, lng: -3.9192513},
-                zoom: 11
-
-            });*/
 
             var map = new google.maps.Map(document.getElementById('map'), {
              center: { lat: init.lat, lng: init.lng},
@@ -215,7 +206,7 @@
             }
 
         }
-        console.log('abidjan');
+
     }
     else
     {
@@ -271,43 +262,11 @@
 
             }
         }
-        console.log('bouake');
+
     }
 
-    //google.maps.event.addDomListener(window, 'load', initialize);
+
 </script>
-{{--<script>
-
-
-    $(document).ready(function () {
-
-        $('#com').change(function () {
-
-            /*$.get('maps/bycommune', function (data) {
-                console.log(data);
-            })*/
-
-
-
-          /*  var id = $(this).val();
-            $.get('maps/bycommune', [id])*/
-
-
-
-
-
-           /* var idcommune = $(this).val();
-            $.ajax({
-                url: 'maps/bycommune',
-                type: 'GET',
-                data: { id: idcommune }
-            });
-            console.log(idcommune)*/
-        })
-
-    })
-</script>--}}
-
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFFwXNKrYiQnaL-6kPhBxqn3SPsZE7mr0&callback=initMap" async defer></script>
 
