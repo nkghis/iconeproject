@@ -23,7 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::group( ['middleware' => ['auth']], function() {
-    Route::get('maps/bycommune/{id}', 'MapController@bycommune')->name('maps.bycommune');
+    Route::get('maps/bycommune', 'MapController@bycommune')->name('maps.bycommune');
     Route::get('/upload', 'GmapConttroller@upload')->name('upload');
     Route::post('/enregistrer', 'GmapConttroller@enregistrer')->name('enregistrer');
     Route::resource('users', 'UserController');

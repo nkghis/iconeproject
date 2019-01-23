@@ -19,16 +19,32 @@ class MapController extends Controller
         return view('map.index', compact('commune', 'visuel'));
     }
 
-    public function bycommune($id)
+    public function bycommune(Request $request)
     {
-        $id = $_GET['id'];
-        dd($id);
-        /*$id = $_GET['id'];
-        dd($id);
-        $commune = Commune::all();
+
+        $id = $request->input('commune');
         $v = new Visuel();
-        $visuel = $v->ListVisuelCommune($id);
-        return view('map.index', compact('commune', 'visuel'));*/
-        return 'test';
+        $commune = Commune::all();
+        $communeselected = Commune::find($id);
+        //dd($communeselected);
+        if ($communeselected == null)
+        {
+            $visuel = $v->ListVisuel();
+            $cs = new Commune();
+            $cs->id = 0;
+            $cs->name = '-- Toutes les communes --';
+
+
+        }
+        else
+        {
+
+            $visuel = $v->ListVisuelCommune($id);
+            $cs = $communeselected;
+        }
+
+
+        return view('map.filter', compact('commune', 'visuel', 'cs'));
+
     }
 }

@@ -103,7 +103,7 @@
                             <option value="0">-- Toutes les communes --</option>
 
                             @foreach ($commune as $communes)
-                                <option value="{{$communes->id}}"  >{{$communes->name}}</option>
+                                <option value="{{$communes->id}}" {{ $communes->id == $cs->id ? 'selected' : '' }}  >{{$communes->name}}</option>
                             @endforeach
 
                         @endif
@@ -139,59 +139,140 @@
     var infowindows;
     var e = document.getElementById('com');
     var id = e.options[e.selectedIndex].value;
+    //var element = $(this).find('option:selected').attr('com');
+   console.log(id);
 
 
-    function initMap() {
+    var init = @json($cs);
+    console.log(init.lat);
+    console.log(init.lng);
+    console.log(init.zoom);
+    if (id != 0)
+    {
 
-        var map = new google.maps.Map(document.getElementById('map'), {
-            center: { lat: 5.3819324, lng: -3.9192513},
-            zoom: 11
+        function initMap() {
+            // Creation de la carte et initialisation de la vue.
+            /*var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: 5.3819324, lng: -3.9192513},
+                zoom: 11
 
-        });
+            });*/
 
-        var marker = [];
-        var contentString =[];
-        var infowindow = [];
-        var url = '{{asset('storage/mesimages/')}}';
+            var map = new google.maps.Map(document.getElementById('map'), {
+             center: { lat: init.lat, lng: init.lng},
 
-        for(var i =0; i < markers.length; i++ ){
-            var location = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
+             zoom: init.zoom
 
-            marker[i] = new google.maps.Marker({
+             });
 
-                position : location,
-                title : markers[i].adresse,
-                map:map
 
-            });
-            contentString[i] = '<div id="content">' +
-                '<div id = "site"' +
-                '</div>'+
-                '<h1 id = "firsthead" class="firstHeading">'+ markers[i].adresse +'</h1>'+
-                '<div id ="bodycontent">'+
-                '<p><b>Commune : </b>'  + markers[i].name +
-                '<br>'+
-                '<br>'+
-                '<img width="200" src="'+ url +'/'+markers[i].nameimage+'"/>'+
-                '</div>'+
-                '</div>';
-            infowindow[i] = new google.maps.InfoWindow({
 
-                content : contentString[i]
-            });
 
-            var monevent = marker[i];
-            google.maps.event.addListener(marker[i], 'click', (function (monevent, i) {
+            var marker = [];
 
-                return function (){
-                    infowindow[i].open(map, marker[i]);
-                }
-            })(marker[i], i))
+
+            var contentString =[];
+
+
+            var infowindow = [];
+            var url = '{{asset('storage/mesimages/')}}';
+
+
+            for(var i =0; i < markers.length; i++ ){
+                var location = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
+
+                marker[i] = new google.maps.Marker({
+
+                    position : location,
+                    title : markers[i].adresse,
+                    map:map
+
+                });
+                contentString[i] = '<div id="content">' +
+                    '<div id = "site"' +
+                    '</div>'+
+                    '<h1 id = "firsthead" class="firstHeading">'+ markers[i].adresse +'</h1>'+
+                    '<div id ="bodycontent">'+
+                    '<p><b>Commune : </b>'  + markers[i].name +
+                    '<br>'+
+                    '<br>'+
+                    '<img width="200" src="'+ url +'/'+markers[i].nameimage+'"/>'+
+                    '</div>'+
+                    '</div>';
+                infowindow[i] = new google.maps.InfoWindow({
+
+                    content : contentString[i]
+                });
+
+                var monevent = marker[i];
+                google.maps.event.addListener(marker[i], 'click', (function (monevent, i) {
+
+                    return function (){
+                        infowindow[i].open(map, marker[i]);
+                    }
+                })(marker[i], i))
+
+            }
 
         }
-
+        console.log('abidjan');
     }
+    else
+    {
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
 
+                center: { lat: 5.3819324, lng: -3.9192513},
+                zoom: 11
+            });
+            var marker = [];
+
+
+            var contentString =[];
+
+
+            var infowindow = [];
+            var url = '{{asset('storage/mesimages/')}}';
+
+
+            for(var i =0; i < markers.length; i++ ){
+                var location = new google.maps.LatLng(markers[i].latitude, markers[i].longitude);
+
+                marker[i] = new google.maps.Marker({
+
+                    position : location,
+                    title : markers[i].adresse,
+                    map:map
+
+                });
+                contentString[i] = '<div id="content">' +
+                    '<div id = "site"' +
+                    '</div>'+
+                    '<h1 id = "firsthead" class="firstHeading">'+ markers[i].adresse +'</h1>'+
+                    '<div id ="bodycontent">'+
+                    '<p><b>Commune : </b>'  + markers[i].name +
+                    '<br>'+
+                    '<br>'+
+                    '<img width="200" src="'+ url +'/'+markers[i].nameimage+'"/>'+
+                    '</div>'+
+                    '</div>';
+                infowindow[i] = new google.maps.InfoWindow({
+
+                    content : contentString[i]
+                });
+
+                var monevent = marker[i];
+                google.maps.event.addListener(marker[i], 'click', (function (monevent, i) {
+
+                    return function (){
+                        infowindow[i].open(map, marker[i]);
+                    }
+                })(marker[i], i))
+
+            }
+        }
+        console.log('bouake');
+    }
 
     //google.maps.event.addDomListener(window, 'load', initialize);
 </script>
