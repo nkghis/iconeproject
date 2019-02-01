@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Campagne;
 use App\Commune;
 use App\GmapLocation;
 use App\Image;
@@ -16,13 +17,24 @@ class VisuelController extends Controller
     public function index()
     {
         $commune = Commune::all();
-        return view('visuel.index', compact('commune'));
+        $campagne = Campagne::all();
+        return view('visuel.index', compact('commune','campagne'));
     }
     public function store(Request $request)
     {
+        //dd($request->input('concurrent'));
+
+      /*  if ($request->input('concurrent')==true)
+        {
+            dd('true');
+        }*/
+
+        //dd('false');
+
         $this->validate($request, [
             'adresse' => 'required',
             'commune' => 'required|not_in:0',
+            'campagne' => 'required|not_in:0',
             'image' => 'image|required'
 
         ]);
@@ -52,6 +64,52 @@ class VisuelController extends Controller
                 $image = new Image();
                 $image->nameimage = $filename;
                 $image->save();
+                if ($request->input('concurrent')==false && $request->input('confrere')==false )
+                {
+                    $concurent = 0;
+                    $confrere =0;
+                    $marqueur = 'red';
+                }
+                else
+                {
+                    if ($request->input('concurrent')==true)
+                    {
+                        $concurent = $request->input('concurrent');
+                        $confrere =0;
+                        $marqueur = 'yellow';
+                    }
+                    else
+                    {
+                        $confrere = $request->input('confrere');
+                        $concurent =0;
+                        $marqueur = 'blue';
+
+                    }
+
+
+                }
+
+                /*if ($request->input('concurrent')==true)
+                {
+                    $concurent = $request->input('concurrent');
+                    $marqueur = 'yellow';
+                }
+                else
+                {
+                    $concurent = 0;
+                    $marqueur = 'red';
+                }
+
+                if ($request->input('confrere')==true)
+                {
+                    $confrere = $request->input('confrere');
+                    $marqueur = 'blue';
+                }
+                else
+                {
+                    $confrere = 0;
+                    $marqueur = 'red';
+                }*/
 
                 $visuel = new Visuel();
                 $visuel->adresse = $request->adresse;
@@ -59,6 +117,11 @@ class VisuelController extends Controller
                 $visuel->longitude = $imglocation['longitude'];
                 $visuel->image_id = $image->id;
                 $visuel->commune_id = $request->commune;
+                $visuel->campagne_id = $request->campagne;
+                $visuel->estconcurent = $concurent;
+                $visuel->estconfrere = $confrere;
+                $visuel->marqueur = $marqueur;
+
                 $visuel->save();
 
                 session()->flash('message', 'Le visuel ayant pour adresse'.' '.$visuel->adresse.' '.'a été enregistré avec succès.');

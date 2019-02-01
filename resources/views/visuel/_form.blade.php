@@ -13,6 +13,30 @@
     </div>
 </div>
 
+<!-- Select Campagne -->
+<div class="form-group row">
+    <label for="campagneid" class="col-sm-4 col-form-label text-md-right"><strong>{{ __('Campagne') }}</strong></label>
+
+    <div class="col-md-6">
+        {{--Autofill dropdown edit form--}}
+        <select id="idcampagne" name="campagne" class="select-type form-control"  >
+
+            @if($campagne->count())
+
+                <option value="">- Selectionner la campagne -</option>
+                @foreach ($campagne as $campagnes)
+                    <option value="{{$campagnes->id}}">{{$campagnes->nomcampagne}}</option>
+                @endforeach
+            @endif
+        </select>
+
+        @if ($errors->has('campagne'))
+            <span class="invalid-feedback">
+                <strong><font>{{ $errors->first('campagne') }}</font></strong>
+            </span>
+        @endif
+    </div>
+</div>
 <!-- Sticker Form Input -->
 <div class="form-group row">
     <label for="communeid" class="col-sm-4 col-form-label text-md-right"><strong>{{ __('Commune') }}</strong></label>
@@ -37,6 +61,34 @@
         @endif
     </div>
 </div>
+
+<!-- Checkbox  -->
+
+{{--<div class="row">
+    <div class="col-md-5">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+            <label class="form-check-label" for="inlineCheckbox1">Concurent</label>
+        </div>
+    </div>
+</div>--}}
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-6 text-left">
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" name="concurrent" type="checkbox" id="inlineCheckbox1" value="1">
+            <label class="form-check-label" for="inlineCheckbox1"><strong style="color:yellow">Concurrent</strong></label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" name="confrere" type="checkbox" id="inlineCheckbox2" value="1">
+            <label class="form-check-label" for="inlineCheckbox2"><strong style="color:blue">Confrère</strong></label>
+        </div>
+    </div>
+</div>
+
+
+
+
 
 <div class="form-group row">
     <label for="lib_image" class="col-sm-4 col-form-label text-md-right"><strong>{{ __('') }}</strong></label>

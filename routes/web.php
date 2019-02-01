@@ -30,6 +30,7 @@ Route::group( ['middleware' => ['auth']], function() {
     Route::resource('roles', 'RoleController');
     Route::resource('visuels', 'VisuelController');
     Route::resource('maps', 'MapController');
+    Route::resource('campagnes', 'CampagneController');
 
     //A ajouter pour chaque table créer.
     //Route::resource('posts', 'PostController');

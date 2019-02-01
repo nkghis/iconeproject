@@ -93,14 +93,14 @@
 
         <div class="col-md-8">
             <form method="GET" action="{{ route('maps.bycommune') }}">
-                <div class="form-group row">
+                <div class="form-group row mx-sm-2">
                 <label for="inputEmail3" class="col-sm-2 col-form-label text-right">Commune</label>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
                     <select id="com" name="commune" class="form-control">
 
                         @if($commune->count())
 
-                            <option value="0">-- Toutes les communes --</option>
+                            <option value="0">All communes</option>
 
                             @foreach ($commune as $communes)
                                 <option value="{{$communes->id}}" {{ $communes->id == $cs->id ? 'selected' : '' }}  >{{$communes->name}}</option>
@@ -111,9 +111,27 @@
 
                     </select>
                 </div>
+                <label for="inputEmail3" class="col-sm-2 col-form-label text-right">Campagne</label>
+                <div class="col-sm-3">
+                        <select id="com" name="campagne" class="form-control">
+
+                            @if($campagne->count())
+
+                                <option value="0">All campagnes</option>
+
+                                @foreach ($campagne as $campagnes)
+                                    <option value="{{$campagnes->id}}" {{ $campagnes->id == $cm->id ? 'selected' : '' }}  >{{$campagnes->nomcampagne}}</option>
+                                @endforeach
+
+                            @endif
+
+
+                        </select>
+                    </div>
                 <div class="col-sm-2">
                     <button class="btn btn-md btn-primary btn-block" type="submit">Filtrer</button>
                 </div>
+
 
             </div>
             </form>
@@ -123,7 +141,14 @@
 
         </div>--}}
 
-        <div class="col-md-4 page-action text-right">
+        <div class="col-md-3 page-action ">
+            <div class="row">
+                <h2><span class="badge badge-success">Total Visuel</span></h2>
+                <h2><span class="badge badge-primary">{{$visuel->count()}}</span></h2>
+            </div>
+        </div>
+
+        <div class="col-md-1 page-action text-right">
             <a href="{{ route('home') }}" class="btn btn-default btn-sm"> <i class="material-icons">backspace</i> Retour</a>
         </div>
     </div>
@@ -176,7 +201,10 @@
 
                     position : location,
                     title : markers[i].adresse,
-                    map:map
+                    map:map,
+                    icon: {
+                        url: "http://maps.google.com/mapfiles/ms/icons/"+markers[i].marqueur+"-dot.png"
+                    }
 
                 });
                 contentString[i] = '<div id="content">' +
