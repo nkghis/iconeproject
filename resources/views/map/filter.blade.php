@@ -261,7 +261,10 @@
 
                     position : location,
                     title : markers[i].adresse,
-                    map:map
+                    map:map,
+                    icon: {
+                        url: "http://maps.google.com/mapfiles/ms/icons/"+markers[i].marqueur+"-dot.png"
+                    }
 
                 });
                 contentString[i] = '<div id="content">' +
